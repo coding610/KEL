@@ -13,7 +13,5 @@ class compTest:
 
     def update(self, comps):
         print(Engine.coreModules['Events'].events)
-        #if Engine.coreModules['Events'].events.key('SpaceDown') != None:
-         #   comps['Transform'].yPos += 10
         
         return comps
