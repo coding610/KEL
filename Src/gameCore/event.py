@@ -6,19 +6,22 @@ class Events:
         self.events = {}
 
     def update(self):
+        print("updated?§")
+        
         self.events = {}
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.events['Quit']
+                self.events['Quit'] = 1
 
             if event.type == pygame.KEYDOWN:
-                self.events['KeyDown']
+                self.events['KeyDown'] = 1
 
                 if event.key == pygame.K_SPACE:
-                    self.events['SpaceDown']
+                    self.events['SpaceDown'] = 1
 
             if event.type == pygame.KEYUP:
-                self.events['KeyUp']
+                self.events['KeyUp'] = 1
+
                 if event.key == pygame.K_SPACE:
-                    self.events['SpaceUp']
+                    self.events['SpaceUp'] = 1

@@ -6,7 +6,8 @@ class GameCore:
     def __init__(self):
         self.coreModules = {'Events': Events()}
 
-    def updateEvent(self):
+
+    def updateModules(self):
         for module in self.coreModules:
             self.coreModules[module].update()
 

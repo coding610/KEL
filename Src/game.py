@@ -18,7 +18,11 @@ def game():
 
 
     while True:
-        Engine.updateEvent()
+        Engine.updateModules()
+
+        if 'Quit' in Engine.coreModules['Events'].events:
+            sys.exit()
+
 
         # Wn Fill
         wn.fill(bgColor)
