@@ -9,7 +9,7 @@ class RenderRectComp:
 
 
     def update(self, components):
-        lY, lX, w, h = components['TransformRectComp'].xLT, components['TransformRectComp'].yLT, components['TransformRectComp'].width, components['TransformRectComp'].height
+        lX, lY, w, h = components['TransformRectComp'].xLT, components['TransformRectComp'].yLT, components['TransformRectComp'].width, components['TransformRectComp'].height
         pygame.draw.rect(wn, playerColor, pygame.Rect((lX, lY), (w, h)))
 
 

@@ -1,6 +1,7 @@
 from Src.Models import *
 from Src.gameCore import *
 from Src.Components import *
+from Src.Components.compTest import *
 
 from Assets import *
 
@@ -9,8 +10,7 @@ import sys
 def game():
     objects = {}
     objects['Wall'] = emptyModel()
-    objects['Wall'].addComponent([ TransformRectComp(100, 100, 10, 100), RenderRectComp() ])
-
+    objects['Wall'].addComponent([ TransformRectComp(100, 100, 10, 100), RenderRectComp(), CompTest() ])
 
     # Loop thru created objects and start them
     for start in objects:

@@ -6,8 +6,6 @@ class Events:
         self.events = {}
 
     def update(self):
-        print("updated?§")
-        
         self.events = {}
 
         for event in pygame.event.get():
