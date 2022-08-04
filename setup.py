@@ -3,7 +3,7 @@ import codecs
 import os
 
 
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 DESCRIPTION = 'A Simple Game Engine Libary'
 LONG_DESCRIPTION = 'Chech github: https://github.com/coding610/KEL/tree/master'
 
@@ -23,7 +23,7 @@ setup(
     install_requires=['pygame'],
     keywords=['python', 'pygame', 'Game Engine', 'Simple', 'Beginner', 'Learning'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "Operating System :: Unix",
