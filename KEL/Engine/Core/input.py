@@ -2,10 +2,18 @@ from KEL.Engine.Game.pygameSetup import *
 from KEL.Engine.Core.core import *
 
 
-def Input(eventEquals):
+def Input(eventEquals) -> str:
+    # Loop thru event
     for event in KELCORE.coreModules['Events'].events:    
+        
+        if hasattr(event, 'key'): # Check if event has key so no errors
 
-        if hasattr(event, 'key'):
-            pygameAttr = getattr(pygame, eventEquals)
-            if event.key == pygameAttr:
-                return True
+            pygameAttr = getattr(pygame, eventEquals) # Well do this to compare the event.key and the attr
+
+            if event.key == pygameAttr: # Compare
+                # Check if its keydown or keyup
+                if event.type == pygame.KEYDOWN: 
+                    return "Down"
+                
+                if event.type == pygame.KEYUP:
+                    return "Up"
