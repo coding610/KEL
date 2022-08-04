@@ -1,4 +1,4 @@
-from KEL import *
+from KEL-Engine import *
 
 
 def game():
