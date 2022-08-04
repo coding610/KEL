@@ -2,16 +2,7 @@ from KEL import *
 
 
 def game():
-    KELCORE.start()
-
-    
-    run = True
-    while run:
-        KELCORE.updateEngine()
-        
-        if rawInput('type', 'QUIT'):
-            run = False
-        
+    print("outdated")
 
 
 # Security
