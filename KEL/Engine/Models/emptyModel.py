@@ -15,9 +15,5 @@ class EmptyModel:
             self.components[component].start(self.components)
 
     def update(self):
-        print(f"before {self.components}")
-
         for component in self.components:
             self.components = self.components[component].update(self.components)
-
-        print(f"after {self.components}")

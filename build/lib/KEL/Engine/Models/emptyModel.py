@@ -1,4 +1,4 @@
-class emptyModel:
+class EmptyModel:
     def __init__(self):
         self.components = {}
 
