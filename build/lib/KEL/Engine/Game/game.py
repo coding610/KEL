@@ -2,9 +2,6 @@ from KEL import *
 
 
 def game():
-    wallComps = [ TransformRectComp(), RenderRectComp(), MoveWallComp()]
-    KELCORE.addObject('Wall', emptyModel(), wallComps)
-
     KELCORE.start()
 
     
