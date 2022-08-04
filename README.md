@@ -1,78 +1,72 @@
-This is a Game Engine called KEL (Kinda Exploited Libary). Its built on top of pygame. Note that this is not very seruis or any good. Just a project I 
-thought would be fun to work with.
-
-This is a small demo and source code. It will show a square. When you press space it will go down, when you release it will stop falling.
+NOTE: This is under development and does not have many features.
 
 
-Now how does this work?
+This is a Game Engine called KEL (Kinda Exploited Libary). Its built on top of pygame since the name KEL. It doese not have many features but u can use it.
+Its a libary and I wouldnt recomend cloning the repo and using it there. It is possible but kinda no good.
 
-It works by having a Engine(core) and a while loop updateing the core. You can find this inside KEL/Engine/Game/Game.py. There you will assign objects
-and add them to the Engine.objects(a dictionary).
-When you add them u execute the command Engine.addObject(). There you will have to pass three parameters. The first one being the name of the object.
-The second one being what model you should add (right now I only have emptyModel but things such as circle and square and other shapes will be added).
-The third one being what components you should addinonay add to the object. A component is a class that make changes to the object. This will be how u
-will write scripts and make changes to the object.
+Example Usage of Kel:
+    
+    import KEL
+    
+    class MyOwnComp:
+        def start(self, comps):
+            self.moveRight = False
+            self.moveLeft = False
 
-
-Now if you want to try this out u will have to clone the project.
-U can go to the game file (KEL/Engine/Game/game.py) and add objects and components there.
-u can see what components are available in KEL/Engine/Components directory. u can copy how I made my square and do something like it.
-
-If u want to make a costome component u will have to make a new python file in the Components directory. Then go into the __init__.py in the Components directory
-and add your file to it (just copy a line and change the last file to yours). Then in your component file copy this:
-
-'
-import KEL
-
-class yourComponentName:
-
-    # This is called  before the first frame
-    # Used for add global variable by the self keyword
-    def start(self):
-        self.randomGlobalValue = "Im Global"
+        def update(self, comps):
+            # Just moving right if pressing 
 
 
-    # This func is called every frame
-    def update(self):
-        # Acces your randomGlobalValue here
-        self.randomGlobalValue = "Some Thing else"
+            inpD = KEL.Input('K_d')
+            inpA = KEL.Input('K_a')
+
+            if inpD == 'Down':
+                self.moveRight = True
+            elif inpD == 'Up':
+                self.moveRight = False
+
+            if inpA == 'Down':
+                self.moveLeft = True
+            elif inpA == 'Up':
+                self.moveLeft = False
+
+            if self.moveRight:
+                comps['TransformRectComp'].yLT += 1 # yLT stands for y Left Top
+
+            if self.moveLeft:
+                comps['TransformRectComp'].yLT -= 1 # yLT stands for y Left Top
+
+            return comps
 
 
-'
-
-Now u can see what i did in the moveWallComp.py script and how i did it but I can tell u the very few fetures this engine have.
-Use KEL.Input() to have an input. The parameter is a string and it is basicly the keys of pygame
-For example:
-print(KEL.Input('K_SPACE'))
-or
-prit(KEL.Input('K_a'))
-
-this function will return a string, either "Down" or "Up"
-if its down it means that the key is pressed down
-if its up it means that the key is unpressed?
-
-Theres also an raw event function
-use KEL.rawInput() to have a raw event from pygame. it takes two strings and returns True or false
-example
-if KEL.rawInput('type', 'QUIT'):
-    print("Da program is quiting")
-
-or
-if KEL.rawInput('key', 'K_SPACE'):
-    print("Space is pressed")
-
-to read about this read about pygame
-
-I might have to refine the method I do this input in the future.
+    wallComps = [KEL.RenderRectComp(), KEL.TransformRectComp(), MyOwnComp()] # U can change the values of TransformRectComp but its defaulted.
 
 
-This is officially a libary but it cant yet be used as one.
+    KEL.KELCORE.start()
+    run = True
+    while run:
+        KEL.KELCORE.update()
+
+        if KEL.rawInput('type', 'QUIT'):
+            run = False
+
+
+This will just display a square that moves to the right when pressing d and move to the left when pressing a.
+As I said this is steadely under development and this script in the future will look vastly different.
+
+To install this libary just do:
+pip3 install KEL-GameEngine
+
+or go to the pypi page here: https://pypi.org/project/KEL-GameEngine/
+
+
+I made this project because I wanted something to do so dont excpect a spectacular game Engine.
+
+As u might have telled this is heavely inspired by unity. U will here not have an UI or have as much features as unity.
+U also dont have to do a lot of things to get it running but all of that will be fixed more or less in the future. 
+But the lack of features and the simelarities with unity might be a good thing if your starting of your journy in unity.
+So it could be used as a easier to a beginner to understand (easier languages) and with it simplicity.
 
 
 
-I might recomed this to someone who might a thought going in the game engine industry because this is 
-how almost every game engine works and its a simplified version of it so it might be helpful? This does require some basic knowlage of coding
-and preferably an understanding of OOP in python(not neccesary).
-
-
-AS u might have guessed this is inspired by the Unity game engine.
+License: NONE (so feel free to take this but dont pls)
