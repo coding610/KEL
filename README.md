@@ -66,8 +66,7 @@ to read about this read about pygame
 I might have to refine the method I do this input in the future.
 
 
-
-I have plans to make this a libary but that would take a lot off effort and time and im lazy so maybe.
+This is officially a libary but it cant yet be used as one.
 
 
 
