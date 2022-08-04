@@ -1,6 +1,7 @@
 README.md
 setup.py
 KEL/__init__.py
+KEL/Assets/__init__.py
 KEL/Engine/__init__.py
 KEL/Engine/Components/__init__.py
 KEL/Engine/Components/moveWallComp.py
