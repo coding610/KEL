@@ -1,5 +1,6 @@
 from KEL.Engine.Core.event import *
 from KEL.Engine.Game.pygameSetup import *
+from KEL.Engine.Models.emptyModel import EmptyModel
 
 
 class GameCore:
@@ -9,7 +10,7 @@ class GameCore:
         self.frameLimit = frameLimit
         self.objects = {}
 
-    def start(self):
+    def startEngine(self):
         for component in self.objects:
             self.objects[component].start()
 
@@ -19,11 +20,15 @@ class GameCore:
         
         # Updating coreModules
         for module in self.coreModules:
-            self.coreModules[module].update()
+            self.coreModules[module].update(self.objects)
         
         # Updating objects, thats really just updating the blueprint that then updates the components of the object
         for object in self.objects:
-            self.objects[object].update()
+            # Passing all the objects except yourself
+            objParameter = self.objects.copy()
+            objParameter.pop(object)
+
+            self.objects[object].update(objParameter)
 
 
 
@@ -32,14 +37,19 @@ class GameCore:
    
 
 
+    def addObject(self, objectName="emptyModel", objectInstance=EmptyModel(), objectLocation='objects', components=[]) -> None:
+        # First get the location by getting the of my self
+        location = getattr(self, objectLocation)
 
-    def addObject(self, objectName, object, components):
-        # Add object to dic
-        self.objects[objectName] = object
+        # Then adding it to the attribute
+        location[objectName] = objectInstance
 
+        # Then adding the components we might want to add when we create the object
         self.objects[objectName].addComponent(components)
+    
 
 
 
 
+# Declaring it here so other can use it when importing this
 KELCORE = GameCore(frameLimit=30)

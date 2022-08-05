@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: KEL-GameEngine
-Version: 0.0.6
+Version: 0.0.7
 Summary: A Simple Game Engine Libary
 Home-page: UNKNOWN
 Author: Sixten Bohman
@@ -9,7 +9,7 @@ License: UNKNOWN
 Description: Chech github: https://github.com/coding610/KEL/tree/master
 Keywords: python,pygame,Game Engine,Simple,Beginner,Learning
 Platform: UNKNOWN
-Classifier: Development Status :: 1 - Planning
+Classifier: Development Status :: 2 - Pre-Alpha
 Classifier: Intended Audience :: Developers
 Classifier: Programming Language :: Python :: 3
 Classifier: Operating System :: Unix

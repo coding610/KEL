@@ -5,5 +5,5 @@ class TransformRectComp:
         self.width = 100
         self.height = 100
 
-    def update(self, comps):
+    def update(self, comps, objects):
         return comps

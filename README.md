@@ -31,24 +31,23 @@ Example Usage of Kel:
                 self.moveLeft = False
 
             if self.moveRight:
-                comps['TransformRectComp'].yLT += 1 # yLT stands for y Left Top
+                comps['TransformRectComp'].xLT += 1 # yLT stands for x Left Top
 
             if self.moveLeft:
-                comps['TransformRectComp'].yLT -= 1 # yLT stands for y Left Top
+                comps['TransformRectComp'].xLT -= 1 # yLT stands for x Left Top
 
             return comps
 
-
+    
+    # Creating Object
     wallComps = [KEL.RenderRectComp(), KEL.TransformRectComp(), MyOwnComp()] # U can change the values of TransformRectComp but its defaulted.
+    KEL.KELCORE.addObject(objectName='Player', ) # There are some additional settings such as what models should i use
+    #(defaulted as emptyModel) and objectInstance (if u want to save it in a folder (super alpha not reliable))
+    
 
 
-    KEL.KELCORE.start()
-    run = True
-    while run:
-        KEL.KELCORE.update()
-
-        if KEL.rawInput('type', 'QUIT'):
-            run = False
+    # Running Kel (the most reasent update)
+    KEL.run()
 
 
 This will just display a square that moves to the right when pressing d and move to the left when pressing a.
