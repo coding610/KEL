@@ -1,71 +1,64 @@
 NOTE: This is under development and does not have many features.
 
+This is a python Framework called KEL (Kinda Exploited Game Engine). In the future you might be able to call it a game engine but right now Its a tool i guess.
+It (by the moment) does not have a UI and not many features. Heres a list of the upcoming features u might see in the near future.
 
-This is a Game Engine called KEL (Kinda Exploited Libary). Its built on top of pygame since the name KEL. It doese not have many features but u can use it.
-Its a libary and I wouldnt recomend cloning the repo and using it there. It is possible but kinda no good.
+* material and color functionality (color next update)
+* better overall costumizability,
+* UI (very far far far away). Its a goal of mine to at least have it,
+* Better inherence with how transformcomp works,
+* More components such as a collider, circle collider, polygon collider, polygon renderer and much more.
 
-Example Usage of Kel:
-    
-    import KEL
-    
-    class MyOwnComp:
-        def start(self, comps):
-            self.moveRight = False
-            self.moveLeft = False
+It will be more features but I just cant think of any that would make a difference for the user other
+than small fixes.
 
-        def update(self, comps):
-            # Just moving right if pressing 
-
-
-            inpD = KEL.Input('K_d')
-            inpA = KEL.Input('K_a')
-
-            if inpD == 'Down':
-                self.moveRight = True
-            elif inpD == 'Up':
-                self.moveRight = False
-
-            if inpA == 'Down':
-                self.moveLeft = True
-            elif inpA == 'Up':
-                self.moveLeft = False
-
-            if self.moveRight:
-                comps['TransformRectComp'].xLT += 1 # yLT stands for x Left Top
-
-            if self.moveLeft:
-                comps['TransformRectComp'].xLT -= 1 # yLT stands for x Left Top
-
-            return comps
+Anyway here is a code example of how u can use this. This is only in one file but it can of course be
+in many files.
 
     
-    # Creating Object
-    wallComps = [KEL.RenderRectComp(), KEL.TransformRectComp(), MyOwnComp()] # U can change the values of TransformRectComp but its defaulted.
-    KEL.KELCORE.addObject(objectName='Player', ) # There are some additional settings such as what models should i use
-    #(defaulted as emptyModel) and objectInstance (if u want to save it in a folder (super alpha not reliable))
-    
+    #
+    # This will display a square moving to the right when pressing d and moving to the left when pressing a
+    #
 
-
-    # Running Kel (the most reasent update)
-    KEL.run()
-
-
-This will just display a square that moves to the right when pressing d and move to the left when pressing a.
-As I said this is steadely under development and this script in the future will look vastly different.
-
-To install this libary just do:
-pip3 install KEL-GameEngine
-
-or go to the pypi page here: https://pypi.org/project/KEL-GameEngine/
-
-
-I made this project because I wanted something to do so dont excpect a spectacular game Engine.
-
-As u might have telled this is heavely inspired by unity. U will here not have an UI or have as much features as unity.
-U also dont have to do a lot of things to get it running but all of that will be fixed more or less in the future. 
-But the lack of features and the simelarities with unity might be a good thing if your starting of your journy in unity.
-So it could be used as a easier to a beginner to understand (easier languages) and with it simplicity.
+    from KEL import *
 
 
 
-License: NONE (so feel free to take this but dont pls)
+    class MyComponent:
+        def start(self):
+            self.holdRight = False
+            self.holdLeft = False
+
+            self.transformComp = KELEngine.getComponent('TransformRectComp') # Here we actually define the component in the start function (super proud of this)
+
+
+        def update(self):
+            if KELEngine.Input(inputKey='K_d', state='Down'): # State is if the func should return true on keyup or Down. Its defaulted as down but its good practise
+                self.holdRight = True
+
+            elif KELEngine.Input(inputKey='K_d', state='Up'):
+                self.holdRight = False
+
+            if KELEngine.Input(inputKey='K_a', state='Down'):
+                self.holdLeft = True
+            elif KELEngine.Input(inputKey='K_a', state='Up'):
+                self.holdLeft = False
+
+
+            if self.holdRight: self.transformComp.xLT += 1 # (xLT stands for x Left Top)
+
+            if self.holdLeft: self.transformComp.xLT -= 1
+
+
+
+
+    # Creating Objects
+    wallComps = [RenderRectComp(), TransformRectComp(), MyComponent()]# U can change the values of TransformRectComp but its defaulted.
+
+    KELEngine.addObject(objectName='Player', components=wallComps) # There are some additional settings such as what models u should use 
+    # emptyModel is only available
+
+    run()
+
+
+This code is simple and u can do a lot more with the current features. 

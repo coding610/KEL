@@ -1,16 +1,15 @@
-from KEL.Engine.Core.core import *
-from KEL.Engine.Core.rawInput import *
+from KEL.Engine.Core import *
 
 
 def run(mode="standard"):
     if mode == "standard":
-        KELCORE.startEngine()
+        KELEngine.startEngine()
         
         run = True
         while run:
-            KELCORE.updateEngine()
+            KELEngine.updateEngine()
 
-            if rawInput('type', 'QUIT'):
+            if KELEngine.rawInput('type', 'QUIT'):
                 run = False
 
 

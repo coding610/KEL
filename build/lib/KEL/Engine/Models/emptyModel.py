@@ -14,6 +14,6 @@ class EmptyModel:
         for component in self.components:
             self.components[component].start(self.components)
 
-    def update(self):
+    def update(self, objects):
         for component in self.components:
-            self.components = self.components[component].update(self.components)
+            self.components = self.components[component].update(self.components, objects)

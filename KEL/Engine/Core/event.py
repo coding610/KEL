@@ -1,10 +1,9 @@
-from KEL.Engine.Game.pygameSetup import *
+from KEL.Engine.Setup import *
+
 
 class Events:
-    def __init__(self):
+    def update(self):
         self.events = []
 
-    def update(self, objects):
-        self.events = []
         for event in pygame.event.get():
             self.events.append(event)
