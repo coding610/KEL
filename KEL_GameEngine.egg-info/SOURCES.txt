@@ -12,6 +12,7 @@ KEL/Engine/Components/transformRectComp.py
 KEL/Engine/Core/__init__.py
 KEL/Engine/Core/core.py
 KEL/Engine/Core/event.py
+KEL/Engine/Core/screen.py
 KEL/Engine/Game/__init__.py
 KEL/Engine/Game/run.py
 KEL/Engine/Maths/__init__.py

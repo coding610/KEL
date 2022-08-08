@@ -7,7 +7,7 @@ class GravityComp:
 
 
     def update(self):
-        transformComp = KELEngine.getComponent('TransformRectComp')
+        transformComp = KEL.getComponent('TransformRectComp')
         
 
 
