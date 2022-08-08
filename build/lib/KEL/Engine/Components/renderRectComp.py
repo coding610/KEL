@@ -1,17 +1,13 @@
-from KEL.Engine.Game.pygameSetup import *
-from KEL.Engine.Const import *
+from KEL.Engine.Setup import *
+from KEL.Engine.Core import *
 
 
 class RenderRectComp:
-    def start(self, comps):
-        try: comps['TransformRectComp']
-        
-        except KeyError as err: print("Component", err, "not found")
+    def start(self):
+        pass
 
+    def update(self):
+        transformComp = KELEngine.getComponent('TransformRectComp')
 
-    def update(self, components, objects):
-        lX, lY, w, h = components['TransformRectComp'].xLT, components['TransformRectComp'].yLT, components['TransformRectComp'].width, components['TransformRectComp'].height
-        pygame.draw.rect(wn, playerColor, pygame.Rect((lX, lY), (w, h)))
-
-
-        return components
+        lX, lY, w, h = transformComp.xLT, transformComp.yLT, transformComp.width, transformComp.height
+        pygame.draw.rect(wn, "#000000", pygame.Rect((lX, lY), (w, h)))

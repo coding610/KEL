@@ -1,9 +1,6 @@
-import KEL
-
-
 class CollideComp:
-    def start(self, comps):
+    def start(self):
         pass
 
-    def update(self, myComps, objects):
-        return myComps
+    def update(self): 
+        pass
