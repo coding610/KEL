@@ -184,8 +184,7 @@ class GameCore:
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def getMaterial(self) -> str: # This is the material that the current 
-        try:
-            return self.currentObj.material
+        return self.currentObj.material
 
 
     def getRawMaterial(self, materialName):

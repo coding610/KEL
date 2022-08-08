@@ -24,10 +24,10 @@ in many files.
 
         def update(self):
             if KEL.Input(inputKey='K_d', state='Down'): self.holdRight = True # State is if the func should return true on keyup or Down. Its defaulted as down but its good practise
-            elif KEL.Input(inputKey='K_d', state='Up'): self.holdRight = False
+            if KEL.Input(inputKey='K_d', state='Up'): self.holdRight = False
 
             if KEL.Input(inputKey='K_a', state='Down'): self.holdLeft = True
-            elif KEL.Input(inputKey='K_a', state='Up'): self.holdLeft = False
+            if KEL.Input(inputKey='K_a', state='Up'): self.holdLeft = False
 
             if self.holdRight: self.transformComp.xLT += 1 # (xLT stands for x Left Top)
             if self.holdLeft: self.transformComp.xLT -= 1

@@ -1,4 +1,5 @@
 NEED TO DO:
+1. Fix small tap on the github test code. When pressing a small tap it doesnt recognize the keyup.
 1. Make some sort of preset creating tool for a main script and component script
 2. Make Scenes
 3. Make more components (collide and stuff)
