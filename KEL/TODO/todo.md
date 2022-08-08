@@ -1,20 +1,21 @@
 NEED TO DO:
-* Fix colors (soon materials)
-* Make more components (collide and stuff)
-* Make the coreEngines fucntion in other files. do this by the saying CoreEngine.someRandoMFunc = someRandoMFunc
-* Make a screen class
+1. Make some sort of preset creating tool for a main script and component script
+2. Make Scenes
+3. Make more components (collide and stuff)
+4. Make UI hhehe lol
 
 
-* UPDATE GITHUB AND README when Im done with the components
-* Update pypi
 
 
 WORKING:
-* Come up to a name to the CoreEngine (currently KEL)
+* Rename KELEngine to KEL
+* Fix materials functions
 
-DONE:
-* Make a better get component system (letsa do this) (almost done need to fix how to change the components)
-* Fix importing
-* Fix event do (by doing manual in input and rawInput)
-* Revert event handeling
+
+DONE IN THIS UPDATE:
+* Store colors
+* Fix colors
+* When importing KEL make sure that the coreModule frame is called and make sure that when running run the objects are started.
 * Make getting a component in the start function.
+* Make a screen class
+* Make a better get component system (letsa do this) (almost done need to fix how to change the components)

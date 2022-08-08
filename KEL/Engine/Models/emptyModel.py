@@ -16,6 +16,7 @@ class EmptyModel:
 
     def start(self):
         for component in self.components:
+            self.currentComp = self.components[component]
             self.components[component].start()
 
     def update(self):

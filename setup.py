@@ -3,7 +3,7 @@ import codecs
 import os
 
 
-VERSION = '0.0.9'
+VERSION = '0.0.10'
 DESCRIPTION = 'A Simple Game Engine Libary'
 LONG_DESCRIPTION = 'Chech github: https://github.com/coding610/KEL/tree/master'
 

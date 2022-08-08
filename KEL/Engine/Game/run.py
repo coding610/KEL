@@ -1,16 +1,20 @@
 from KEL.Engine.Core import *
 
 
-def run(mode="standard"):
+def run(mode="standard", scene=None):
     if mode == "standard":
-        KELEngine.startEngine()
-        
+        KEL.startObjects()
         run = True
         while run:
-            KELEngine.updateEngine()
+            KEL.updateEngine()
 
-            if KELEngine.rawInput('type', 'QUIT'):
+            if KEL.rawInput('type', 'QUIT'):
                 run = False
+
+
+
+# Start engine when importing
+KEL.startCoreModules()
 
 
 if __name__ == "__main__":

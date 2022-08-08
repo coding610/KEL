@@ -1,6 +1,7 @@
 from KEL.Engine.Setup import *
 from KEL.Engine.Models.emptyModel import * 
 from KEL.Engine.Core.event import *
+from KEL.Engine.Core.screen import *
 
 
 class GameCore:
@@ -9,10 +10,11 @@ class GameCore:
         self.clock = pygame.time.Clock()
         self.frameLimit = frameLimit
         self.framerate = 0
-
-        self.coreModules = {'EventHandling': Events()}
+        self.coreModules = {'EventHandling': Events(), 'Screen': Screen()}
         self.objects = {}
         self.currentObj = None # The current object in the update loop (yourself when ur component) 
+        
+        self.materials = {}
 
 
         self.givenModules = {} # When an component calles getComponent() they get added to this list (the component). # In every frame we update the components component (from getComponent). 
@@ -21,33 +23,35 @@ class GameCore:
         self.inputStateDefault = 'Up'
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def startEngine(self):
+    def startObjects(self):
         for component in self.objects:
             self.currentObj = self.objects[component]
             self.objects[component].start()
 
 
+    def startCoreModules(self):
+        for module in self.coreModules:
+            self.coreModules[module].start()
+
+
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def updateEngine(self):
-        wn.fill("#ffffff")
-        self.framerate = self.clock.get_fps()
-        
         self.__updateGivenModules()
 
-        
+
         for module in self.coreModules:
-            self.coreModules[module].update()
+            self.coreModules[module].updateBefore()
         
         # Updating objects, thats really just updating the blueprint that then updates the components of the object
         for object in self.objects:
-            # We need to get value of it so we need to pass it thru the dic
             self.currentObj = self.objects[object]
-            self.objects[object].update()
+            self.objects[object].update() 
+
+        for module in self.coreModules:
+            self.coreModules[module].updateAfter()
 
 
-        self.clock.tick(self.frameLimit)
-        pygame.display.update()
-
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def __updateGivenModules(self) -> None:
         for callingComp in self.givenModules:
             # This component is the component that the component wanted to have acces to
@@ -55,24 +59,25 @@ class GameCore:
             # We find the right attribute by loopoing thru them using the dir command. We filter out the python attriubutes by checking if it starts with __
             for attributeName in dir(callingComp):
                 if attributeName[0] != '_' and attributeName[1] != '_':
-                    if attributeName == 'renderComp':
+                    if attributeName == "pass": # Här har vi det. attributeName ska vara lika med accesedComp
                         attribute = getattr(callingComp, attributeName)
                         attribute = accesedComp
                         
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def addObject(self, objectName="emptyModel", objectModel=EmptyModel(), objectLocation='objects', objectColor="#000000", components=[]) -> None:
+    def addObject(self, objectName="emptyModel", objectModel=EmptyModel(), objectLocation='objects', components=[]) -> None:
         # First get the location by getting the of my self
         location = getattr(self, objectLocation)
 
         # Then adding it to the attribute
-        location[objectName] = objectModel 
+        location[objectName] = objectModel
 
         # Then adding the components we might want to add when we create the object
         self.objects[objectName].addComponent(components)
 
-        # Adding the objectColor
-        self.objects[objectName].objectColor = objectColor
+        # Adding a default white material
+        self.objects[objectName].material = "#ffffff"
+
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def getComponent(self, attribute=''):
@@ -106,6 +111,36 @@ class GameCore:
         except AttributeError as err:
             return err
 
+
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def getObject(self, object:str):
+        return self.objects[object]
+    
+
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def getAttribute(self, attribute):
+        # Get the requested attribute of the current object
+
+        try:
+            returnValue = getattr(self.currentObj, attribute)
+            return returnValue
+        
+        except AttributeError as err:
+            raise err
+
+
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def getRawAttribute(self, object, attribute):
+        # Get the requested attribute of the object requested
+
+        try:
+            returnValue = getattr(self.objects[object], attribute)
+            return returnValue
+
+        except AttributeError as err:
+            raise err
+
+
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def Input(self, inputKey, state='Down') -> bool:
         for event in self.coreModules['EventHandling'].events: # Loop thru events list
@@ -133,5 +168,31 @@ class GameCore:
 
         return False
 
+    
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def createMaterial(self, materialName:str, materialColor:str): # Color will be hexadecimal
+        self.materials[materialName] = materialColor
 
-KELEngine = GameCore(frameLimit=60)
+   
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def addMaterial(self, materialName:str, objectName:str):
+        material = self.materials[materialName]
+        object = self.objects[objectName]
+
+        object.material = material
+
+
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def getMaterial(self) -> str: # This is the material that the current 
+        try:
+            return self.currentObj.material
+
+
+    def getRawMaterial(self, materialName):
+        return self.materials[materialName]
+
+    def getObjectMaterial(self, objectName):
+        return self.objects[object].color
+
+
+KEL = GameCore(frameLimit=60)
