@@ -1,7 +1,5 @@
 from KEL.Engine.Core import *
 
-import numpy
-
 class TransformPolyComp:
     def __init__(self, points):
         # Make so that u can have many points
