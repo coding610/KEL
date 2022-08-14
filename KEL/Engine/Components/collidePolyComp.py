@@ -2,7 +2,6 @@ from KEL.Engine.Core import *
 
 import math
 import random
-import numpy
 
 
 class CollidePolyComp:
