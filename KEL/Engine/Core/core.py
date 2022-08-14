@@ -3,6 +3,7 @@ from KEL.Engine.Models.emptyModel import *
 from KEL.Engine.Core.event import *
 from KEL.Engine.Core.screen import *
 
+import time
 
 class GameCore:
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
@@ -17,10 +18,9 @@ class GameCore:
         self.materials = {}
 
 
-        self.givenModules = {} # When an component calles getComponent() they get added to this list (the component). # In every frame we update the components component (from getComponent). 
-        # The component is the declarer. Exe. self.giveModules = {Object: Component}
-
         self.inputStateDefault = 'Up'
+
+        self.deltaTime = 0
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def startObjects(self):
@@ -36,7 +36,8 @@ class GameCore:
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def updateEngine(self):
-        self.__updateGivenModules()
+        # Time
+        self.beginTime = time.time()
 
 
         for module in self.coreModules:
@@ -51,32 +52,26 @@ class GameCore:
             self.coreModules[module].updateAfter()
 
 
-    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def __updateGivenModules(self) -> None:
-        for callingComp in self.givenModules:
-            # This component is the component that the component wanted to have acces to
-            accessedComp = self.givenModules[callingComp]
-            # We find the right attribute by loopoing thru them using the dir command. We filter out the python attriubutes by checking if it starts with __
-            for attributeName in dir(callingComp):
-                if attributeName[0] != '_' and attributeName[1] != '_':
-                    if attributeName == "pass": # Här har vi det. attributeName ska vara lika med accesedComp
-                        attribute = getattr(callingComp, attributeName)
-                        attribute = accesedComp
-                        
+        # Time
+        self.afterTime = time.time()
+        self.deltaTime = self.afterTime - self.beginTime
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def addObject(self, objectName="emptyModel", objectModel=EmptyModel(), objectLocation='objects', components=[]) -> None:
+    def addObject(self, objectName="emptyModel", objectModel=EmptyModel, hitbox=True, components=[], objectLocation='objects') -> None:
         # First get the location by getting the of my self
         location = getattr(self, objectLocation)
 
         # Then adding it to the attribute
-        location[objectName] = objectModel
+        location[objectName] = objectModel()
 
         # Then adding the components we might want to add when we create the object
         self.objects[objectName].addComponent(components)
 
         # Adding a default white material
         self.objects[objectName].material = "#ffffff"
+
+        # Add hitbox bool
+        self.objects[objectName].hitbox = hitbox
 
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
@@ -85,13 +80,10 @@ class GameCore:
         if attribute == '':
             return self.currentObj
         
-        
+
         # If it doesnt have the attribute just return the AttributeError 
         try:
             returnValue = self.currentObj.components[attribute]
-
-            # self.givenModules[componentThatIsCallingThisFunction] = theComponentThatTheComponentWantsAccesTo 
-            self.givenModules[self.currentObj.currentComp] = returnValue
 
             return returnValue  
 
@@ -99,24 +91,36 @@ class GameCore:
             raise err
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def rawGetComponent(self, object:str, attribute:str=''):
+    def getRawComponent(self, object:str, attribute:str=''):
         # So were basicly doing getAttribute function but we specify the object and do not use the currentObj
         if attribute == '':
             return self.objects[object]
 
 
         try:
-            return object.components[attribute]
+            returnValue = self.objects[object].components[attribute]
+
+            return returnValue
 
         except AttributeError as err:
-            return err
+            raise err
 
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def getObject(self, object:str):
+    def getObject(self):
+        return self.currentObj
+
+    def getRawObject(self, object:str):
         return self.objects[object]
     
+    def getAllObject(self): # Will not return the obejct your calling from
+        returnValue = []
+        for obj in self.objects:
+            if self.objects[obj] != self.currentObj:
+                returnValue.append(self.objects[obj])
 
+        return returnValue
+    
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def getAttribute(self, attribute):
         # Get the requested attribute of the current object
@@ -183,15 +187,29 @@ class GameCore:
 
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def getMaterial(self) -> str: # This is the material that the current 
+    def getMaterial(self) -> str: # This is the material that the current obj has
         return self.currentObj.material
 
-
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def getRawMaterial(self, materialName):
         return self.materials[materialName]
 
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def getObjectMaterial(self, objectName):
         return self.objects[object].color
+
+    #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
+    def createFilePreset(self, fileName:str): # This is only experimental
+        with open('KEL/Engine/Core/filePreset.py', 'r') as f:
+            filePreset = f.read()
+            # Returns the index that 'n' is on
+            indexN = filePreset.find('name')
+            
+            filePreset2 = filePreset[:indexN] + fileName + filePreset[indexN+4:]
+
+        with open(fileName + '.py', 'w+') as f:
+            f.write(filePreset2)
+
 
 
 KEL = GameCore(frameLimit=60)

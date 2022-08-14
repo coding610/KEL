@@ -19,7 +19,7 @@ class Screen:
 
 
     def updateBefore(self): # Before updating objects
-        self.wn.fill(self.bgColor)
+        self.wn.fill(self.color)
 
         # Clock
         self.clock.tick(self.frameLimit)

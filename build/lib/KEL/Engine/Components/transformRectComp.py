@@ -1,9 +1,12 @@
 class TransformRectComp:
+    def __init__(self, xLT=100, yLT=100, width=100, height=100) -> None:
+        self.xLT = xLT
+        self.yLT = yLT 
+        self.width = width 
+        self.height = height
+
     def start(self):
-        self.xLT = 100
-        self.yLT = 100
-        self.width = 100
-        self.height = 100
+        pass
 
     def update(self):
         pass

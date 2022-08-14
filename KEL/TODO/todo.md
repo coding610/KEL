@@ -1,22 +1,32 @@
 NEED TO DO:
-1. Fix small tap on the github test code. When pressing a small tap it doesnt recognize the keyup.
-1. Make some sort of preset creating tool for a main script and component script
-2. Make Scenes
-3. Make more components (collide and stuff)
-4. Make UI hhehe lol
-
-
+* Make Scenes
+* Make more components (collide and stuff)
+* Make UI hhehe lol
+* If hold on input return true (not up and down)
+* Make it easier to add a compoennt after initzialation
+* Make folders for objects
+* Layers
+* Make so that 
+* Make hitboxes class so that it des not utgå ifrån transformComp
 
 
 WORKING:
-* Rename KELEngine to KEL
-* Fix materials functions
+* Make collidePoly interfere with rects
+* Make collideRect overagain with collidePoly as a base
 
 
 DONE IN THIS UPDATE:
-* Store colors
-* Fix colors
-* When importing KEL make sure that the coreModule frame is called and make sure that when running run the objects are started.
-* Make getting a component in the start function.
-* Make a screen class
-* Make a better get component system (letsa do this) (almost done need to fix how to change the components)
+* Make so that every object has hitboxes on or off
+* Make a Documentation markdown file
+* Make a function to get all the objects
+* Sockets is unessesary so I deleted it
+* Make so collideComp gets all the objects
+* Make so polyTransform gets infinite points
+* Make so transformPoly points is relative to the other one. So if one is moved then the other one is too (done with moveX() and moveY())
+* Make so collidePoly gets all the points (not just the four shown)
+* Make SAT collision
+* Make some sort of preset creating tool for a main script and component script
+* Make transform comp __init__ values
+* deltaTime
+* improved gravityComp
+* improved demo
