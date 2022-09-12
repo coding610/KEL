@@ -28,7 +28,7 @@ class Scene:
             self.currentObj = self.objects[object]
             self.objects[object].update() 
 
-        clock.tick(60)
+        self.clock.tick(60)
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def addObject(self, objectName="emptyModel", objectModel=EmptyModel, hitbox=True, components=[], objectLocation='objects') -> None: # Dont use objLocation
