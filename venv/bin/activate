@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/Sixtens/Dev/Python/Pygame/KEL-Engine/venv"
+VIRTUAL_ENV="/Users/Sixtens/Dev/Python/Pygame/SEAS/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

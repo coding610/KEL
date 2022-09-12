@@ -1,4 +1,4 @@
-#!/Users/Sixtens/Dev/Python/Pygame/KEL-Engine/venv/bin/python3
+#!/Users/Sixtens/Dev/Python/Pygame/SEAS/venv/bin/python3
 
 # Author:
 # Contact: grubert@users.sf.net

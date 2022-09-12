@@ -1,4 +1,4 @@
-#!/Users/Sixtens/Dev/Python/Pygame/KEL-Engine/venv/bin/python3
+#!/Users/Sixtens/Dev/Python/Pygame/SEAS/venv/bin/python3
 
 # $Id: rst2odt.py 8994 2022-01-29 16:28:17Z milde $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>

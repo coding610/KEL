@@ -1,4 +1,4 @@
-#!/Users/Sixtens/Dev/Python/Pygame/KEL-Engine/venv/bin/python3
+#!/Users/Sixtens/Dev/Python/Pygame/SEAS/venv/bin/python3
 # :Copyright: © 2015 Günter Milde.
 # :License: Released under the terms of the `2-Clause BSD license`_, in short:
 #

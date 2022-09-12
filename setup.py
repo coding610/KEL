@@ -10,7 +10,7 @@ LONG_DESCRIPTION = 'Chech github: https://github.com/coding610/KEL/tree/master'
 
 # Setting up
 setup(
-    name="SEAS",
+    name="MySEAS",
     version=VERSION,
     author="Sixten Bohman",
     author_email="sixten.bohman.08@gmail.com",
@@ -21,7 +21,7 @@ setup(
     packages=find_packages(),
     
     install_requires=['pygame'],
-    keywords=['python', 'pygame', 'Game Engine', 'Simple', 'Beginner', 'Learning'],
+    keywords=['python', 'pygame', 'Game Engine', 'Simple', 'Beginner', 'Learning', 'Funny?'],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Intended Audience :: Developers",

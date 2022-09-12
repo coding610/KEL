@@ -1,4 +1,4 @@
-#!/Users/Sixtens/Dev/Python/Pygame/KEL-Engine/venv/bin/python3
+#!/Users/Sixtens/Dev/Python/Pygame/SEAS/venv/bin/python3
 
 # $Id: rst2odt_prepstyles.py 8932 2022-01-05 14:59:31Z milde $
 # Author: Dave Kuhlman <dkuhlman@rexx.com>
