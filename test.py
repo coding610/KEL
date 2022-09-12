@@ -1,7 +1,7 @@
 from SEAS import *
 from moveCar import *
 
-
+'''
 SEAS.loggingLevel = 'Error'
 
 SEAS.newScene('S1', 60, True)
@@ -27,5 +27,5 @@ SEAS.addMaterial(materialName='Test', objectName='Test')
 
 
 SEAS.coreModules['Screen'].color = "#282828"
-
+'''
 run()
