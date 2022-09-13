@@ -9,6 +9,8 @@ class EmptyModel:
     def addComponent(self, components):
         for component in components:
             self.components[type(component).__name__] = component
+        for component in components:
+            component.start()
 
     def removeComponent(self, components):
         for component in components:

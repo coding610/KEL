@@ -26,9 +26,13 @@ class Scene:
     def updateScene(self):
 
         # Updating objects, thats really just updating the blueprint that then updates the components of the object
-        for object in self.objects:
-            self.currentObj = self.objects[object]
-            self.objects[object].update() 
+        try:
+            for object in self.objects:
+                self.currentObj = self.objects[object]
+                self.objects[object].update() 
+        except RuntimeError:
+            # This just basicly means that if a object was created in the dic we are gonna start OVEERERRERERERERER
+            pass
 
         self.clock.tick(60)
 
