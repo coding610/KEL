@@ -5,6 +5,7 @@ class CarMovement:
     def start(self):
         self.cntrl = SEAS.getScene().getComponent('CharacterPolyController')
         self.trns = SEAS.getScene().getComponent('TransformPoly')
+        self.coll = SEAS.getScene().getComponent('CollidePoly')
         
         self.steerVel = 0.0 
         self.maxSteerVel = 4
@@ -20,13 +21,19 @@ class CarMovement:
 
     def update(self):
         # VEL HANDLELING
-
         self.gearHandleling()
         self.steerHandleling()
         self.velHandleling()
         self.driftHandleling()
         self.moveCar()
         self.newMap()
+        self.toggleHitbox()
+    
+    def toggleHitbox(self):
+        if SEAS.input('SPACE') and SEAS.getHitboxGroupState('Finish'):
+            SEAS.toggleHitboxGroup('Finish')
+
+
     def velHandleling(self): 
         if SEAS.input('w') and self.vel < self.maxVel: self.vel += self.acc
         if SEAS.input('s') and self.vel > -self.maxVelBack: self.vel -= self.acc
@@ -40,7 +47,6 @@ class CarMovement:
             if self.vel > 0: self.vel = 0
     
     def steerHandleling(self):
-
         if SEAS.input('a') and self.steerVel > -self.maxSteerVel: self.steerVel -= self.steerAcc;
         if SEAS.input('d') and self.steerVel < self.maxSteerVel: self.steerVel += self.steerAcc; 
 
@@ -63,6 +69,6 @@ class CarMovement:
         self.cntrl.drawDir()
 
     def newMap(self):
-        if SEAS.input('SPACE'):
+        if self.coll.collide:
             SEAS.transferObject('Car', 'S2', resetObject=False)
             SEAS.targetScene('S2')

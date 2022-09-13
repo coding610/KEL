@@ -6,22 +6,19 @@ import random
 
 class CollidePoly:
     def start(self):
-        self.myObj = SEAS.getScene().getComponent('TransformPoly')
+        self.myObj = SEAS.getScene().getComponent('HitboxPoly')
+        self.chObj = SEAS.getScene().getObject()
 
         self.objects = SEAS.getScene().getAllObject()
 
-
         # See if it has a hitbox
         for i in range(len(self.objects)):
-            if self.objects[i].hitbox == False:
+            if not SEAS.sameInitHitboxGroup([self.objects[i], self.chObj]):
                 self.objects.pop(i)
-    
 
-        # Make it all transformPoly
+        # Make it all hitboxPoly
         for i in range(len(self.objects)):
-            self.objects[i] = self.objects[i].components['TransformPoly']
-
-
+            self.objects[i] = self.objects[i].components['HitboxPoly']
 
         self.collide = False
 
@@ -29,15 +26,13 @@ class CollidePoly:
 
 
     def update(self):
-        self.updateCorners()
+        if SEAS.getHitboxGroupState(SEAS.getObjectInitHitboxGroup(self.chObj)):
+            self.updateCorners()
 
-        self.collide = False
-
-        
-        # We want to check myObject and all the other objects
-        for i in range(len(self.sides)):
-            if self.collide == False:
-                self.mainLoop(self.mySides, self.myCorners, self.sides[i], self.corners[i])
+            self.collide = False
+            for i in range(len(self.sides)): # We want to check myObject and all the other objects
+                if self.collide == False:
+                    self.mainLoop(self.mySides, self.myCorners, self.sides[i], self.corners[i])
 
     def mainLoop(self, mySides, myCorners, objSides, objCorners):
         for mySide in mySides:

@@ -45,7 +45,11 @@ class GameCore:
             self.coreModules[mod].start()
 
     def startCoreObjects(self) -> None: #The scenes work. Only will run when we hit run() or when a new scene is created
-        self.targetedScene.startObjects()
+        try:
+            self.targetedScene.startObjects()
+        except:
+            if self.loggingLevel == 'Comment' or self.loggingLevel == 'Warning':
+                print("SEAS::startCoreObjects(): Warning: No Scene Created")
 
     def updateCore(self) -> None:
         self.time1 = time.time()
@@ -54,7 +58,12 @@ class GameCore:
         for module in self.coreModules:
             self.coreModules[module].updateBefore()
 
-        self.targetedScene.updateScene()
+
+        try:
+            self.targetedScene.updateScene()
+        except:
+            if self.loggingLevel == 'Comment' or self.loggingLevel == 'Warning':
+                print("SEAS::updateCore(): Warning: No Scene Created")
         
         # Aft
         for module in self.coreModules:

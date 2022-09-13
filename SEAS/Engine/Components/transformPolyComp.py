@@ -1,17 +1,14 @@
 class TransformPoly:
     def __init__(self, point):
-        # Make so that u can have many points
-        # U might have to update points in update.
         # Make so points are relavant to other points
 
-
-        # Well do that later
-        self.points = point
-        self.angle = 0
+        # We do this because the currentObj is not updated yet. This wont do a diff here but its good practise (look at hitboxPoly)
+        self.inpPoint = point
 
 
     def start(self):
-        pass
+        self.points = self.inpPoint
+        self.angle = 0
 
     def update(self):
         pass

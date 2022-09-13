@@ -16,6 +16,7 @@ NEED TO DO:
 * Make debug tools (visible on another debug screen) (thru socketsand another exe)
 
 * MAKE ERROR HANDLELING BETTER
+* Make parameters for the start unctions to take from initzialation and dont do it from the __init__
 
 WORKING:
 
