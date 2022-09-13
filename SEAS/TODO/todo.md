@@ -19,14 +19,9 @@ NEED TO DO:
 * Make parameters for the start unctions to take from initzialation and dont do it from the __init__
 
 WORKING:
+* Make so that if a object is created with the same name it will be called "name"2
+
+
 
 
 DONE IN THIS UPDATE:
-* Error handleling (IMPORTANT)
-* Make input when hold down true and not the frame
-* Transfer materials from NewScene to GameCore
-* Make all the components take away the sufix "comp"
-* Make a getScene function in class "GameCore"
-* Make Scenes
-* Change KEL to SEAS (sufficiently exploied a Script)
-* Make characterController (still workiing on it) 

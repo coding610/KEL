@@ -129,7 +129,7 @@ Just like getAttribute but u sepcify object also.
 Mandatory for almost all other prebuild components. Have points (more than 3) in a list. Works almost like unities transform. Also have an angle
 
 
-##MORE COMING SOON
+## MORE COMING SOON
 
 
 # QUESTIONS
