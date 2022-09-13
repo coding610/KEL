@@ -28,6 +28,7 @@ class GameCore:
 
         self.materials = {}
         self.coreModules = {'Event': Event(), 'Input': Input(),'Screen': Screen()}
+        self.hitboxGroup = {}
 
         self.inputStateDefault = 'Up'
 
@@ -40,16 +41,13 @@ class GameCore:
 
         self.loggingLevel = 'Comment'
 
+
     def startCoreModules(self) -> None:
         for mod in self.coreModules:
             self.coreModules[mod].start()
 
     def startCoreObjects(self) -> None: #The scenes work. Only will run when we hit run() or when a new scene is created
-        try:
-            self.targetedScene.startObjects()
-        except:
-            if self.loggingLevel == 'Comment' or self.loggingLevel == 'Warning':
-                print("SEAS::startCoreObjects(): Warning: No Scene Created")
+        self.targetedScene.startObjects()
 
     def updateCore(self) -> None:
         self.time1 = time.time()
@@ -59,11 +57,7 @@ class GameCore:
             self.coreModules[module].updateBefore()
 
 
-        try:
-            self.targetedScene.updateScene()
-        except:
-            if self.loggingLevel == 'Comment' or self.loggingLevel == 'Warning':
-                print("SEAS::updateCore(): Warning: No Scene Created")
+        self.targetedScene.updateScene()
         
         # Aft
         for module in self.coreModules:
@@ -96,7 +90,6 @@ class GameCore:
 
     def newScene(self, name:str, frameLimit:int=60, isTargeted:bool=True, overflowObj:str='') -> Any:
         self.scenes[name] = Scene(frameLimit)
-        self.scenes[name].startObjects()
 
         if isTargeted:
             self.targetedScene = self.scenes[name]
@@ -104,7 +97,10 @@ class GameCore:
 
     def targetScene(self, sceneName:str) -> None:
         if self.scenes[sceneName] != self.targetScene:
+            sceneBef = self.targetedScene
             self.targetedScene = self.scenes[sceneName]
+            self.startCoreModules()
+            self.targetedScene.currentObj = sceneBef.currentObj
 
     def getScene(self) -> Any:
         return self.targetedScene
@@ -171,6 +167,76 @@ class GameCore:
 
         return False
 
-         
+    def createHitboxGroup(self, groupName, state=False):
+        self.hitboxGroup[groupName] = [[], state]
+
+    def addNameHitboxGroup(self, groupName:str, objects:list=[]): # Call this only in a component
+
+        oAdd = []
+        for obj in objects:
+            oAdd.append(self.getScene().objects[obj])
+
+        self.hitboxGroup[groupName][0] = oAdd
+
+    def addInitHitboxGroup(self, groupName:str, objects:list=[]): # Call this only in a component
+        self.hitboxGroup[groupName] = [objects, False]
+
+    def toggleHitboxGroup(self, groupName:str):
+        if self.hitboxGroup[groupName][1] == False:
+            self.hitboxGroup[groupName][1] = True
+        else:
+            self.hitboxGroup[groupName][1] = False
+
+    def getHitboxGroupState(self, groupName:str):
+        return self.hitboxGroup[groupName][1]
+
+    def getObjectNameHitboxGroup(self, objectName:str):
+        for g in self.hitboxGroup:
+            if objectName in self.hitboxGroup[g][0]:
+                return g
+
+    def getObjectInitHitboxGroup(self, objectInit:str):
+        for g in self.hitboxGroup:
+            if objectInit in self.hitboxGroup[g][0]:
+                return g
+
+    def sameNameHitboxGroup(self, objectNames:list) -> bool:
+        objGroup = []
+        for obj in objectNames:
+            for g in self.hitboxGroup:
+                if self.getScene().objects[obj] in self.hitboxGroup[g][0]:
+                    objGroup.append(g)
+        
+        # No idea how this works, just copied from stack overflow lol
+        if len(objectNames) < 2:
+            raise 'MATE YOU NEED TO INPUT ATLEAST 2 OBJECTS HERE'
+        if len(objGroup) < 2:
+            return False
+
+        return self.same(objGroup)
+    
+    def sameInitHitboxGroup(self, objectInits:list) -> bool:
+        objGroup = []
+        for obj in objectInits:
+            for g in self.hitboxGroup:
+                if obj in self.hitboxGroup[g][0]:
+                    objGroup.append(g)
+        
+        # No idea how this works, just copied from stack overflow lol
+        if len(objectInits) < 2:
+            raise 'MATE YOU NEED TO INPUT ATLEAST 2 OBJECTS HERE'
+        if len(objGroup) < 2:
+            return False
+
+        return self.same(objGroup)
+
+    def same(self, iterator):
+        iterator = iter(iterator)
+        try:
+            first = next(iterator)
+        except StopIteration:
+            return True
+        return all(first == x for x in iterator)
+    
 
 SEAS = GameCore()

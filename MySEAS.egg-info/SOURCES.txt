@@ -12,6 +12,7 @@ SEAS/Engine/Components/__init__.py
 SEAS/Engine/Components/characterPolyControllerComp.py
 SEAS/Engine/Components/collidePolyComp.py
 SEAS/Engine/Components/gravityComp.py
+SEAS/Engine/Components/hitboxPolyComp.py
 SEAS/Engine/Components/renderPolyComp.py
 SEAS/Engine/Components/renderRectComp.py
 SEAS/Engine/Components/transformPolyComp.py

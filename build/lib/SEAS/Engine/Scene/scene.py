@@ -3,6 +3,8 @@ from SEAS.Engine.Models.emptyModel import *
 from SEAS.Engine.Core.event import *
 from SEAS.Engine.Core.screen import *
 
+from typing import Any
+
 import time
 
 class Scene:
@@ -30,8 +32,9 @@ class Scene:
 
         self.clock.tick(60)
 
+
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def addObject(self, objectName="emptyModel", objectModel=EmptyModel, hitbox=True, components=[], objectLocation='objects') -> None: # Dont use objLocation
+    def addObject(self, objectName:str="emptyModel", hitbox:bool=True, objectModel:Any=EmptyModel, components:list=[], objectLocation:str='objects') -> None: # Dont use objLocation, hitbox will later be hitbox groups and i t will be in the transform group
         # First get the location by getting the of my self
         location = getattr(self, objectLocation)
 
@@ -43,10 +46,6 @@ class Scene:
 
         # Adding a default white material
         self.objects[objectName].material = "#ffffff"
-
-        # Add hitbox bool
-        self.objects[objectName].hitbox = hitbox
-
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def getComponent(self, attribute=''):

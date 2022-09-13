@@ -7,6 +7,7 @@ import math
 class CharacterPolyController:
     def start(self): 
         self.trns = SEAS.getScene().getComponent('TransformPoly')
+        self.hitb = SEAS.getScene().getComponent('HitboxPoly')
 
     def update(self): 
         pass
