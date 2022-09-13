@@ -1,6 +1,5 @@
 from SEAS import *
 
-
 class CarMovement:
     def start(self):
         self.cntrl = SEAS.getScene().getComponent('CharacterPolyController')

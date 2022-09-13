@@ -99,6 +99,7 @@ class GameCore:
         if self.scenes[sceneName] != self.targetScene:
             sceneBef = self.targetedScene
             self.targetedScene = self.scenes[sceneName]
+            self.startCoreModules()
             self.targetedScene.currentObj = sceneBef.currentObj
 
     def getScene(self) -> Any:

@@ -10,10 +10,10 @@ SEAS.newScene('S2', 60, False)
 
 # Object components
 carCords = [[10, 10], [10, 20], [30, 20], [30, 10]]
-carComps = [TransformPoly(carCords), RenderPoly(), CharacterPolyController(), CarMovement(), HitboxPoly(points=carCords, moveHitbox=True), CollidePoly()]
+carComps = [TransformPoly(carCords), RenderPoly(), CharacterPolyController(), CarMovement(), HitboxPoly(), CollidePoly()]
 
 testCords = [[200, 200], [300, 200], [300, 300], [200, 300]]
-testComps = [TransformPoly(testCords), RenderPoly(), HitboxPoly(points=testCords, moveHitbox=False), CarMovement2(), CharacterPolyController(), CollidePoly()]
+testComps = [TransformPoly(testCords), RenderPoly(), HitboxPoly(), CarMovement2(), CharacterPolyController(), CollidePoly()]
 
 # Create objects
 SEAS.getScene().addObject(objectName='Car', components=carComps)

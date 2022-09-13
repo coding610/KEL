@@ -9,6 +9,8 @@ class HitboxPoly:
 
     def start(self) -> None:
         self.points = self.inpPoints
+        if self.points == []:
+            self.points = SEAS.getScene().getComponent('TransformPoly').points
 
         self.moveHitbox = self.inpMoveHitbox
 
