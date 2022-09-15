@@ -18,10 +18,14 @@ NEED TO DO:
 * MAKE ERROR HANDLELING BETTER
 * Make parameters for the start unctions to take from initzialation and dont do it from the __init__
 
+* Make SEAS.addNameHitboxGroup() and SEAS.addInitHitboxGroup(). Raw is already created but it would be good if u do dis.
+* Make also scene have a LoggingLimit
+
+
 WORKING:
-* Make so that if a object is created with the same name it will be called "name"2
 
 
 
 
 DONE IN THIS UPDATE:
+* Make so that if a object is created with the same name it will be called "name"2

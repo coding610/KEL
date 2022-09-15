@@ -10,11 +10,13 @@ class CollidePoly:
         self.chObj = SEAS.getScene().getObject()
 
         self.objects = SEAS.getScene().getAllObject()
+        self.notTheSame = SEAS.getScene().getAllObject()
 
-        # See if it has a hitbox
-        for i in range(len(self.objects)):
-            if not SEAS.sameInitHitboxGroup([self.objects[i], self.chObj]):
-                self.objects.pop(i)
+        # See if it has the same hitbox
+        for obj in self.notTheSame:
+            if not SEAS.sameInitHitboxGroup([obj, self.chObj]):
+                self.objects.pop(self.objects.index(obj))
+
 
         # Make it all hitboxPoly
         for i in range(len(self.objects)):
@@ -26,6 +28,9 @@ class CollidePoly:
 
 
     def update(self):
+        # Update objects
+        self.start()
+
         if SEAS.getHitboxGroupState(SEAS.getObjectInitHitboxGroup(self.chObj)):
             self.updateCorners()
 

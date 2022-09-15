@@ -7,10 +7,15 @@ class EmptyModel:
 
 
     def addComponent(self, components):
+
         for component in components:
             self.components[type(component).__name__] = component
+        
         for component in components:
-            component.start()
+            try:
+                component.start()
+            except:
+                pass
 
     def removeComponent(self, components):
         for component in components:

@@ -170,16 +170,16 @@ class GameCore:
     def createHitboxGroup(self, groupName, state=False):
         self.hitboxGroup[groupName] = [[], state]
 
-    def addNameHitboxGroup(self, groupName:str, objects:list=[]): # Call this only in a component
-
-        oAdd = []
+    def addRawNameHitboxGroup(self, groupName:str, objects:list=[]): # Call this only in a component
         for obj in objects:
-            oAdd.append(self.getScene().objects[obj])
+            # oAdd.append(self.getScene().objects[obj])
+            self.hitboxGroup[groupName][0].append(self.getScene().objects[obj])
 
-        self.hitboxGroup[groupName][0] = oAdd
+        # self.hitboxGroup[groupName][0] = oAdd
 
-    def addInitHitboxGroup(self, groupName:str, objects:list=[]): # Call this only in a component
-        self.hitboxGroup[groupName] = [objects, False]
+    def addRawInitHitboxGroup(self, groupName:str, objects:list=[]): # Call this only in a component
+        for obj in objects:
+            self.hitboxGroup[groupName][0].append(obj)
 
     def toggleHitboxGroup(self, groupName:str):
         if self.hitboxGroup[groupName][1] == False:
@@ -188,7 +188,10 @@ class GameCore:
             self.hitboxGroup[groupName][1] = False
 
     def getHitboxGroupState(self, groupName:str):
-        return self.hitboxGroup[groupName][1]
+        try:
+            return self.hitboxGroup[groupName][1]
+        except:
+            return False
 
     def getObjectNameHitboxGroup(self, objectName:str):
         for g in self.hitboxGroup:
@@ -222,13 +225,16 @@ class GameCore:
                 if obj in self.hitboxGroup[g][0]:
                     objGroup.append(g)
         
-        # No idea how this works, just copied from stack overflow lol
         if len(objectInits) < 2:
             raise 'MATE YOU NEED TO INPUT ATLEAST 2 OBJECTS HERE'
         if len(objGroup) < 2:
             return False
 
+        # No idea how this works, just copied from stack overflow lol
         return self.same(objGroup)
+
+
+
 
     def same(self, iterator):
         iterator = iter(iterator)
