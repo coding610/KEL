@@ -21,7 +21,7 @@ SEAS.getScene().addObject(objectName='Test', components=testComps)
 
 # Object hitboxes
 SEAS.createHitboxGroup('Finish', True)
-SEAS.addNameHitboxGroup('Finish', ['Car', 'Test'])
+SEAS.addRawNameHitboxGroup('Finish', ['Car', 'Test'])
 
 # Create Materials
 SEAS.createMaterial(materialName='Car', materialColor='#d65d0e')

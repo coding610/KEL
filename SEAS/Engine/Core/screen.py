@@ -24,7 +24,3 @@ class Screen:
         # Clock
         self.clock.tick(self.frameLimit)
         self.frameRate = self.clock.get_fps()
-
-
-    def updateAfter(self): # After updating objects
-        pygame.display.update()

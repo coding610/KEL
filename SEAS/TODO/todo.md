@@ -21,11 +21,11 @@ NEED TO DO:
 * Make SEAS.addNameHitboxGroup() and SEAS.addInitHitboxGroup(). Raw is already created but it would be good if u do dis.
 * Make also scene have a LoggingLimit
 
+* Sockets
+
 
 WORKING:
-
-
+* Threading
 
 
 DONE IN THIS UPDATE:
-* Make so that if a object is created with the same name it will be called "name"2

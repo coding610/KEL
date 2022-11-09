@@ -6,16 +6,14 @@ class EmptyModel:
         self.currentComp = None
 
 
-    def addComponent(self, components):
-
+    def addComponent(self, components, isStart):
         for component in components:
             self.components[type(component).__name__] = component
-        
-        for component in components:
-            try:
+
+
+        if isStart:
+            for component in components:
                 component.start()
-            except:
-                pass
 
     def removeComponent(self, components):
         for component in components:

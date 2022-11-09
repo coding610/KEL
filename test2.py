@@ -1,5 +1,4 @@
 from SEAS import *
-import time
 import random
 
 class PlayerMovement:
@@ -27,6 +26,7 @@ class PlayerMovement:
         self.velHandleling()
         self.driftHandleling()
         self.moveCar()
+
         self.cntrl.drawDir()
 
     def velHandleling(self): 
@@ -62,6 +62,7 @@ class PlayerMovement:
         self.cntrl.move(self.trns.angle, self.vel * SEAS.deltaTime)
         self.cntrl.rotate(self.steerVel)
 
+
 class FoodCreater:
     def start(self):
         self.counter = 0.0
@@ -94,10 +95,8 @@ class FoodCreater:
         posY2 = posY1 + change
 
         return [ [posX1, posY1], [posX2, posY1], [posX2, posY2], [posX1, posY2] ]
+
     
-
-
-
 class Food:
     def start(self):
         SEAS.addRawInitHitboxGroup('PlayerColl', [SEAS.getScene().getObject()])
@@ -115,7 +114,7 @@ class Food:
         if self.coll.collide:
             SEAS.getScene().removeObject()
 
-SEAS.newScene('MainScene', True)
+scene = SEAS.newScene('MainScene', True)
 
 # Objects
 playerCoords = [ [100, 100], [120, 100], [120, 120], [100, 120] ]
@@ -124,9 +123,9 @@ trailComps = [ [200, 200], [220, 200], [220, 220], [200, 220] ]
 playerComps = [TransformPoly(playerCoords), RenderPoly(), CharacterPolyController(), HitboxPoly(), PlayerMovement(), CollidePoly()]
 trailComps = [TransformPoly(playerCoords), RenderPoly(), CharacterPolyController(), HitboxPoly(), PlayerMovement(), CollidePoly()]
 
-SEAS.getScene().addObject('Trail', components=trailComps)
-SEAS.getScene().addObject('Player', components=playerComps)
-SEAS.getScene().addObject('FoodCreater', components=[FoodCreater()])
+scene.addObject('Trail', components=trailComps)
+scene.addObject('Player', components=playerComps)
+scene.addObject('FoodCreater', components=[FoodCreater()])
 
 # Hitbox
 SEAS.createHitboxGroup('PlayerColl', True)

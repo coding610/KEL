@@ -10,6 +10,3 @@ class Event:
 
         for event in pygame.event.get():
             self.events.append(event)
-
-    def updateAfter(self): # Check screen for descrition
-        pass

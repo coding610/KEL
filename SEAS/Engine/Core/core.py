@@ -7,6 +7,8 @@ from SEAS.Engine.Core.input import *
 
 from typing import Any
 
+import threading
+
 class Time:
     def __init__(self) -> None:
         pass
@@ -56,12 +58,9 @@ class GameCore:
         for module in self.coreModules:
             self.coreModules[module].updateBefore()
 
-
         self.targetedScene.updateScene()
         
-        # Aft
-        for module in self.coreModules:
-            self.coreModules[module].updateAfter()
+        pygame.display.update()
 
         self.time2 = time.time()
         self.deltaTime = self.time2 - self.time1
@@ -93,6 +92,8 @@ class GameCore:
 
         if isTargeted:
             self.targetedScene = self.scenes[name]
+
+        return self.scenes[name]
 
 
     def targetScene(self, sceneName:str) -> None:
