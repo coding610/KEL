@@ -24,7 +24,6 @@ class CharacterPolyController:
     def rotate(self, angle, _axis='centroid'):
         self.rotateAngle(angle)
         if self.trns.angle == angle: return None
-        print(self.trns.angle)
 
         if _axis == 'centroid': axis = self.__axis(self.trns.points)
         else:                   axis = _axis
