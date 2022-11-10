@@ -68,6 +68,7 @@ class Scene:
         # Adding a default white material
         self.objects[updatedObjectName].material = "#ffffff"
 
+
     
     def removeObject(self) -> None:
         for key, value in self.objects.items():

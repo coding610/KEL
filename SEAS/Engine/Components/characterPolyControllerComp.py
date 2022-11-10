@@ -2,7 +2,6 @@ from SEAS.Engine.Core import *
 from SEAS.Engine.Setup import *
 
 import math
-import numpy as np
 
 
 class CharacterPolyController:

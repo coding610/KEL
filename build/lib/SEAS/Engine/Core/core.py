@@ -7,6 +7,8 @@ from SEAS.Engine.Core.input import *
 
 from typing import Any
 
+import threading
+
 class Time:
     def __init__(self) -> None:
         pass
@@ -47,7 +49,10 @@ class GameCore:
             self.coreModules[mod].start()
 
     def startCoreObjects(self) -> None: #The scenes work. Only will run when we hit run() or when a new scene is created
-        self.targetedScene.startObjects()
+        try:
+            self.targetedScene.startObjects()
+        except:
+            print("SEAS CORE::startCoreObject(): WARNING: NoSceneCreated")
 
     def updateCore(self) -> None:
         self.time1 = time.time()
@@ -56,12 +61,12 @@ class GameCore:
         for module in self.coreModules:
             self.coreModules[module].updateBefore()
 
-
-        self.targetedScene.updateScene()
+        try:
+            self.targetedScene.updateScene()
+        except:
+            print("SEAS CORE::updateCore(): WARNING: NoSceneCreated")
         
-        # Aft
-        for module in self.coreModules:
-            self.coreModules[module].updateAfter()
+        pygame.display.update()
 
         self.time2 = time.time()
         self.deltaTime = self.time2 - self.time1
@@ -93,6 +98,8 @@ class GameCore:
 
         if isTargeted:
             self.targetedScene = self.scenes[name]
+
+        return self.scenes[name]
 
 
     def targetScene(self, sceneName:str) -> None:

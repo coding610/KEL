@@ -49,7 +49,12 @@ class GameCore:
             self.coreModules[mod].start()
 
     def startCoreObjects(self) -> None: #The scenes work. Only will run when we hit run() or when a new scene is created
-        self.targetedScene.startObjects()
+        try:
+            self.targetedScene.startObjects()
+        except AttributeError as err:
+            print("DISCLAMER: This could be because you have not created a scene yet. Pls proceed and check that thats intact!")
+            print("\n\n\n\n")
+            raise err
 
     def updateCore(self) -> None:
         self.time1 = time.time()
@@ -58,7 +63,10 @@ class GameCore:
         for module in self.coreModules:
             self.coreModules[module].updateBefore()
 
-        self.targetedScene.updateScene()
+        try:
+            self.targetedScene.updateScene()
+        except:
+            print("SEAS CORE::updateCore(): WARNING: NoSceneCreated")
         
         pygame.display.update()
 

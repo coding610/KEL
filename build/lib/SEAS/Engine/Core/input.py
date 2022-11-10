@@ -7,6 +7,3 @@ class Input:
 
     def updateBefore(self):
         self.keys = pygame.key.get_pressed()
-
-    def updateAfter(self):
-        pass

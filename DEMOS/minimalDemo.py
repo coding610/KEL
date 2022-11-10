@@ -1,0 +1,3 @@
+from SEAS import *
+
+run()

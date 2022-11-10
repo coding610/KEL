@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: MySEAS
-Version: 0.0.1.11
+Version: 0.0.2.1
 Summary: A Simple Game Engine Libary
 Home-page: UNKNOWN
 Author: Sixten Bohman
@@ -16,5 +16,5 @@ Classifier: Operating System :: MacOS :: MacOS X
 Classifier: Operating System :: Microsoft :: Windows
 Description-Content-Type: text/markdown
 
-Chech github: https://github.com/coding610/KEL/tree/master
+Chech github: https://github.com/coding610/SEAS/tree/master
 
