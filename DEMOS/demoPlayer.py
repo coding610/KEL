@@ -1,7 +1,7 @@
 from SEAS import *
 
 
-class CarMovement:
+class PlayerMovement:
     def start(self):
         self.cntrl = SEAS.getScene().getComponent('CharacterPolyController')
         self.trns = SEAS.getScene().getComponent('TransformPoly')
@@ -17,7 +17,7 @@ class CarMovement:
         self.drift = None
         self.acc = 10
         self.maxVel = 999 
-        self.maxVelBack = 5
+        self.maxVelBack = 300
 
     def update(self):
         # VEL HANDLELING
@@ -26,13 +26,8 @@ class CarMovement:
         self.velHandleling()
         self.driftHandleling()
         self.moveCar()
-        self.newMap()
-        self.toggleHitbox()
-    
-    def toggleHitbox(self):
-        if SEAS.input('SPACE') and SEAS.getHitboxGroupState('Finish'):
-            SEAS.toggleHitboxGroup('Finish')
 
+        #self.cntrl.drawDirection()
 
     def velHandleling(self): 
         if SEAS.input('w') and self.vel < self.maxVel: self.vel += self.acc
@@ -66,9 +61,3 @@ class CarMovement:
     def moveCar(self):
         self.cntrl.move(self.trns.angle, self.vel * SEAS.deltaTime)
         self.cntrl.rotate(self.steerVel)
-        self.cntrl.drawDir()
-
-    def newMap(self):
-        if self.coll.collide:
-            SEAS.transferObject('Car', 'S2', resetObject=False)
-            SEAS.targetScene('S2')

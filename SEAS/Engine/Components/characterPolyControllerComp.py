@@ -2,6 +2,7 @@ from SEAS.Engine.Core import *
 from SEAS.Engine.Setup import *
 
 import math
+import numpy as np
 
 
 class CharacterPolyController:
@@ -20,75 +21,52 @@ class CharacterPolyController:
         self.moveX(mX)
         self.moveY(mY)
 
-
     # make so that points move in the future
     def rotate(self, angle, _axis='centroid'):
-        # Cchange the direction that the object is spinning
-        self.trns.angle += angle
+        self.rotateAngle(angle)
+        if self.trns.angle == angle: return None
+        print(self.trns.angle)
 
-        if _axis == 'centroid':
-            # Find centroid
-            xPoints = []
-            for p in self.trns.points:
-                xPoints.append(p[0])
+        if _axis == 'centroid': axis = self.__axis(self.trns.points)
+        else:                   axis = _axis
 
-            yPoints = []
-            for p in self.trns.points:
-                yPoints.append(p[1])
-            
-            cX = sum(xPoints)/len(xPoints)
-            cY = sum(yPoints)/len(yPoints)
-            axis = [cX, cY]
-
-        else:
-            axis = _axis
-
-
-        pygame.draw.circle(SEAS.getCoreModule('Screen').wn, (0, 0, 255), axis, 5)
-
-        # Find all angles
-        angles = []
+        newPoints = []
         for p in self.trns.points:
-            a = p[0] - axis[0]
-            b = p[1] - axis[1]
+            newPoints.append(self.rotatePoint(axis[0], axis[1], angle, p))
 
-            if a < 0:
-                a = abs(a) + 180
-            if b < 0:
-                b = abs(b) + 180
+        for p, i in zip(newPoints, range(len(self.trns.points))):
+            self.trns.points[i] = p
 
-            angles.append(
-                    math.degrees(math.atan(
-                        a / b
-                        )))
-            
-        # Rotate figure
-        circles = []
-        for p, a in zip(self.trns.points, angles):
-            print(p)
-            circles.append(
-                    [
-                    math.sqrt((abs(p[0]-axis[0]))**2 + (abs(p[1]-axis[1]))**2),    # Rad
-                    p, # Point on circle
-                    a,  # Angle
-                    axis # Centr
-                    ])
-        
-        newPs = []
-        print(angles)
-        for c in circles:
-            newP = [
-                    math.degrees(math.sin(c[2])) * c[0] + axis[0], # Angle, rad, origon
-                    math.degrees(math.cos(c[2])) * c[0] + axis[1]]
-            newPs.append(newP)
+    def rotateAngle(self, angle):
+        if angle == 0: return self.trns.angle
+        self.trns.angle += angle
+        if self.trns.angle >= 360:
+            self.trns.angle = 0
 
+    def __sin(self, angle): return (math.sin(math.radians(angle)))
+    def __cos(self, angle): return (math.cos(math.radians(angle)))
 
-        for nP, i in zip(newPs, range(len(self.trns.points))):
-            self.trns.points[i] = nP
+    def rotatePoint(self, cx, cy, angle, p):
+        return [self.__cos(angle) * (p[0] - cx) - self.__sin(angle) * (p[1] - cy) + cx,
+                  self.__sin(angle) * (p[0] - cx) + self.__cos(angle) * (p[1] - cy) + cy]
+
+    def __axis(self, points):
+        xPoints = []
+        for p in points:
+            xPoints.append(p[0])
+        yPoints = []
+        for p in points:
+            yPoints.append(p[1])
+        cX = sum(xPoints)/len(xPoints)
+        cY = sum(yPoints)/len(yPoints)
+        axis = [cX, cY]
+        return axis
+    
+    def __rad(self, p1, p2):
+        return math.sqrt(abs(p1[0]-p2[0])**2 + abs(p1[1]-p2[1])**2) 
 
 
-
-    def drawDir(self):
+    def drawDirection(self):
         len = 50
         lenK1 = math.cos(math.radians(self.trns.angle))*len
         lenK2 = math.sin(math.radians(self.trns.angle))*len
