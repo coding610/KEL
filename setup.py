@@ -3,7 +3,13 @@ import codecs
 import os
 
 
-VERSION = '0.0.2.4'
+########SAVE THIS UNVALUABLE INFORMATION#########
+#      python3 setup.py sdist bdist_wheel       #
+#        twine upload dist/* --verbose          #
+########SAVE THIS UNVALUABLE INFORMATION#########
+
+
+VERSION = '0.0.2.5'
 DESCRIPTION = 'A Simple Game Engine Libary'
 LONG_DESCRIPTION = 'Chech github: https://github.com/coding610/SEAS/tree/master'
 

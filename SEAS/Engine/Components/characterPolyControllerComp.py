@@ -13,7 +13,7 @@ class CharacterPolyController:
         pass
 
     
-    def move(self, angle, vel):
+    def move(self, angle=self.trns.angle, vel):
         mX = math.cos(math.radians(angle)) * vel
         mY = math.sin(math.radians(angle)) * vel
 
