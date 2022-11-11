@@ -18,7 +18,7 @@ class FoodCreater:
     def createFood(self):
         wW, wH = SEAS.coreModules['Screen'].wW, SEAS.coreModules['Screen'].wH
         cords = self.rndPos()
-        SEAS.getScene().addObject('Food' , components=[TransformPoly(cords), RenderPoly(), Food(), CollidePoly(), HitboxPoly()])
+        SEAS.getScene().addObject('Food', components=[TransformPoly(cords), RenderPoly(), Food(), CollidePoly(), HitboxPoly()])
 
     def rndPos(self):
         wW = SEAS.coreModules['Screen'].wW
@@ -50,5 +50,5 @@ class Food:
         self.eaten()
 
     def eaten(self):
-        if self.coll.collide:
+        if self.coll.collide[0] and self.coll.collide[1] == 'PlayerColl':
             SEAS.getScene().removeObject()

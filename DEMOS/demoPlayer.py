@@ -26,7 +26,6 @@ class PlayerMovement:
         self.velHandleling()
         self.driftHandleling()
         self.moveCar()
-        print(self.trns.isVisible)
 
         #self.cntrl.drawDirection()
 
