@@ -15,6 +15,9 @@ scene.addObject('FoodCreater', components=[FoodCreater()])
 # Hitbox
 SEAS.createHitboxGroup('PlayerColl', True)
 SEAS.addRawNameHitboxGroup('PlayerColl', ['Player'])
+SEAS.createHitboxGroup('test', True)
+SEAS.addRawNameHitboxGroup('test', ['Player'])
+
 
 # Mat
 SEAS.createMaterial('PlayerMat', "#d65d0e")

@@ -2,7 +2,7 @@ from SEAS.Engine.Core import *
 
 import math
 import random
-
+import time
 
 class CollidePoly:
     def start(self):
@@ -11,18 +11,19 @@ class CollidePoly:
 
         self.objects = SEAS.getScene().getAllObject()
         self.notTheSame = SEAS.getScene().getAllObject()
+        self.realObjects = SEAS.getScene().getAllObject()
 
         # See if it has the same hitbox
         for obj in self.notTheSame:
             if not SEAS.sameInitHitboxGroup([obj, self.chObj]):
                 self.objects.pop(self.objects.index(obj))
-
+                self.realObjects.pop(self.realObjects.index(obj))
 
         # Make it all hitboxPoly
         for i in range(len(self.objects)):
             self.objects[i] = self.objects[i].components['HitboxPoly']
 
-        self.collide = False
+        self.collide = [False, None]
 
         self.whatSide = None
 
@@ -30,14 +31,15 @@ class CollidePoly:
     def update(self):
         # Update objects
         self.start()
-
         if SEAS.getHitboxGroupState(SEAS.getObjectInitHitboxGroup(self.chObj)):
             self.updateCorners()
 
-            self.collide = False
+            self.collide = [False, None]
             for i in range(len(self.sides)): # We want to check myObject and all the other objects
-                if self.collide == False:
-                    self.mainLoop(self.mySides, self.myCorners, self.sides[i], self.corners[i])
+                if self.collide[0] == False:
+                    self.mainLoop(self.mySides, self.myCorners, self.sides[i][0], self.corners[i])
+                if self.collide[0] == True:
+                    self.collide[1] = self.sides[i][1]
 
     def mainLoop(self, mySides, myCorners, objSides, objCorners):
         for mySide in mySides:
@@ -63,13 +65,13 @@ class CollidePoly:
 
 
             if self.sortScalar(scalarsA, scalarsB) == False:
-                self.collide = False
+                self.collide[0] = False
                 self.whatSide = mySide
                 break
             else:
-                self.collide = True
+                self.collide[0] = True
         
-        if self.collide == True:
+        if self.collide[0] == True:
             for objSide in objSides:
                 normal = self.normal(objSide)
                 scalarsA = [] # First element is p1 and so on
@@ -89,13 +91,11 @@ class CollidePoly:
                 # self.printCorners()
                 # self.drawNormals(normal, side)
 
-
                 if self.sortScalar(scalarsA, scalarsB) == False:
-                    self.collide = False
+                    self.collide[0] = False
                     break
                 else:
-                    self.collide = True
-
+                    self.collide[0] = True
 
 
 
@@ -125,7 +125,7 @@ class CollidePoly:
                     else:
                         oSide.append([oCorners[i], oCorners[i+1]])
 
-                self.sides.append(oSide)
+                self.sides.append([oSide, SEAS.getObjectInitHitboxGroup(self.realObjects[self.objects.index(object)])])
                 self.corners.append(oCorners)
 
             except:
