@@ -14,6 +14,7 @@ class FoodCreater:
             self.counter = 0.0
             self.createFood()
 
+
     def createFood(self):
         wW, wH = SEAS.coreModules['Screen'].wW, SEAS.coreModules['Screen'].wH
         cords = self.rndPos()

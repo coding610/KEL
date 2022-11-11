@@ -26,6 +26,7 @@ class PlayerMovement:
         self.velHandleling()
         self.driftHandleling()
         self.moveCar()
+        print(self.trns.isVisible)
 
         #self.cntrl.drawDirection()
 
@@ -59,5 +60,6 @@ class PlayerMovement:
         if self.vel < 0: self.gear = -1
 
     def moveCar(self):
-        self.cntrl.move(self.trns.angle, self.vel * SEAS.deltaTime)
-        self.cntrl.rotate(self.steerVel)
+        self.cntrl.move(self.vel * SEAS.deltaTime) # Angle is defaulted as self.trns.angle
+        res = self.cntrl.rawRotate(points=self.trns.points, angle=self.trns.angle, angleChange=self.steerVel) # AXIS IS DEFAULTED AS "centroid" (the middle of the polygon)
+        self.trns.points, self.trns.angle = res

@@ -12,34 +12,41 @@ class CharacterPolyController:
     def update(self): 
         pass
 
-    
-    def move(self, angle=self.trns.angle, vel):
-        mX = math.cos(math.radians(angle)) * vel
-        mY = math.sin(math.radians(angle)) * vel
+    def move(self, vel, angle='default'):
+        if angle == 'default':
+            nAngle = self.trns.angle
+        else:
+            nAngle = angle
+        mX = math.cos(math.radians(nAngle)) * vel
+        mY = math.sin(math.radians(nAngle)) * vel
 
         self.moveX(mX)
         self.moveY(mY)
 
     # make so that points move in the future
-    def rotate(self, angle, _axis='centroid'):
-        self.rotateAngle(angle)
-        if self.trns.angle == angle: return None
+    def rawRotate(self, points, angle, angleChange, _axis='centroid'):
+        if angleChange == 0: return [points, angle]
+        angle += angleChange
 
-        if _axis == 'centroid': axis = self.__axis(self.trns.points)
-        else:                   axis = _axis
+        if _axis == 'centroid': axis = self.__axis(points)
+        else: axis = _axis
 
         newPoints = []
-        for p in self.trns.points:
-            newPoints.append(self.rotatePoint(axis[0], axis[1], angle, p))
+        for p in points: newPoints.append(self.rotatePoint(axis[0], axis[1], angleChange, p))
+        for p, i in zip(newPoints, range(len(points))): points[i] = p
 
-        for p, i in zip(newPoints, range(len(self.trns.points))):
-            self.trns.points[i] = p
-
-    def rotateAngle(self, angle):
-        if angle == 0: return self.trns.angle
+        return [points, angle]
+        
+    def rotate(self, angle, _axis='centroid'):
+        if angle == 0: return None
         self.trns.angle += angle
-        if self.trns.angle >= 360:
-            self.trns.angle = 0
+
+        if _axis == 'centroid': axis = self.__axis(self.trns.points)
+        else: axis = _axis
+
+        newPoints = []
+        for p in self.trns.points: newPoints.append(self.rotatePoint(axis[0], axis[1], angle, p))
+        for p, i in zip(newPoints, range(len(self.trns.points))): self.trns.points[i] = p
 
     def __sin(self, angle): return (math.sin(math.radians(angle)))
     def __cos(self, angle): return (math.cos(math.radians(angle)))
@@ -60,10 +67,6 @@ class CharacterPolyController:
         axis = [cX, cY]
         return axis
     
-    def __rad(self, p1, p2):
-        return math.sqrt(abs(p1[0]-p2[0])**2 + abs(p1[1]-p2[1])**2) 
-
-
     def drawDirection(self):
         len = 50
         lenK1 = math.cos(math.radians(self.trns.angle))*len

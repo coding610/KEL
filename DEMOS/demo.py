@@ -21,5 +21,4 @@ SEAS.createMaterial('PlayerMat', "#d65d0e")
 SEAS.addMaterial('PlayerMat', 'Player')
 SEAS.coreModules['Screen'].color = '#282828'
 
-
 run()
