@@ -230,22 +230,23 @@ class GameCore:
         return self.same(objGroup)
     
     def sameInitHitboxGroup(self, objectInits:list) -> bool:
+        # We need to match one with the other 
         objGroup = []
         for obj in objectInits:
-            for g in self.hitboxGroup:
-                if obj in self.hitboxGroup[g][0]:
-                    objGroup.append(g)
+            objH = []
+            for h in self.hitboxGroup:
+                if obj in self.hitboxGroup[h][0]:
+                    objH.append(h)
+            objGroup.append(objH)
+        print(objGroup)
         
-        if len(objectInits) < 2:
-            raise 'MATE YOU NEED TO INPUT ATLEAST 2 OBJECTS HERE'
-        if len(objGroup) < 2:
-            return False
-
-        # No idea how this works, just copied from stack overflow lol
-        return self.same(objGroup)
-
-
-
+        for obj1 in objGroup:
+            for obj2 in objGroup:
+                for i in obj1:
+                    for j in obj2:
+                        if obj1 != obj2:
+                            if i == j:
+                                return True
 
     def same(self, iterator):
         iterator = iter(iterator)

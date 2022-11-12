@@ -14,6 +14,7 @@ class CollidePoly:
         self.realObjects = SEAS.getScene().getAllObject()
 
         # See if it has the same hitbox
+        # WE MUST ADD SO THAT THE OBJECT CAN HAVE MANY MORE HITBOX GROUPS
         for obj in self.notTheSame:
             if not SEAS.sameInitHitboxGroup([obj, self.chObj]):
                 self.objects.pop(self.objects.index(obj))
@@ -46,8 +47,6 @@ class CollidePoly:
             normal = self.normal(mySide)
             scalarsA = [] # First element is p1 and so on
             scalarsB = []
-        
-
 
             for myCorner in myCorners:
                 scalA = self.dotProduct(normal[1], myCorner) # Project corner onto normal (returns a scalar). Tar slutposen med normalen med [0]

@@ -238,7 +238,6 @@ class GameCore:
                 if obj in self.hitboxGroup[h][0]:
                     objH.append(h)
             objGroup.append(objH)
-        print(objGroup)
         
         for obj1 in objGroup:
             for obj2 in objGroup:
