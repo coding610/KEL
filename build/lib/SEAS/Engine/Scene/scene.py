@@ -9,12 +9,14 @@ import time
 
 class Scene:
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
-    def __init__(self, frameLimit):
+    def __init__(self, frameLimit, wn):
         self.clock = pygame.time.Clock()
         self.frameLimit = frameLimit
         self.framerate = 0
         self.objects = {}
         self.running = False
+        self.texts = {}
+        self.wn = wn
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
     def startObjects(self):
@@ -32,11 +34,18 @@ class Scene:
             for object in self.objects:
                 self.currentObj = self.objects[object]
                 self.objects[object].update() 
+            
+            for text in self.texts:
+                t = self.texts[text]
+                if t[1]:
+                    self.wn.blit(t[0], t[2])
+
+
         except RuntimeError:
             # This just basicly means that if a object was created in the dic we are gonna start OVEERERRERERERERER
             pass
 
-        self.clock.tick(60)
+        self.clock.tick(self.frameLimit)
 
 
     #-----------------------------------------------------------------------FUNC--------------------------------------------------------------
@@ -67,6 +76,22 @@ class Scene:
 
         # Adding a default white material
         self.objects[updatedObjectName].material = "#ffffff"
+
+    def addText(self, font:Any, textName:str, text:str="Your forgor to put a text on the function (addText)", antialias:bool=True, color:str="#000000", backgroundColor:str=None, render:bool=True, position:Any=[0, 0], typePosition:str='center'):
+        self.texts[textName] = [font.render(text, antialias, color, backgroundColor), render, None] # None i schanged on the second line
+        self.texts[textName][2] = self.texts[textName][0].get_rect() # Make text surface
+        if typePosition == 'center':
+            self.texts[textName][2].center = position
+        else:
+            print("other positions not supported yet")
+
+    def updateText(self, font:Any, textName:str, text:str, antialias:bool=True, color:str="#ffffff", backgroundColor=None):
+        self.texts[textName][0] = font.render(
+                                text,
+                                antialias,
+                                color,
+                                backgroundColor)
+        return self.texts[textName]
 
     def removeObject(self) -> None:
         for key, value in self.objects.items():

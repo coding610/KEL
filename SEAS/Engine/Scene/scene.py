@@ -85,6 +85,14 @@ class Scene:
         else:
             print("other positions not supported yet")
 
+    def updateText(self, font:Any, textName:str, text:str, antialias:bool=True, color:str="#ffffff", backgroundColor=None):
+        self.texts[textName][0] = font.render(
+                                text,
+                                antialias,
+                                color,
+                                backgroundColor)
+        return self.texts[textName]
+
     def removeObject(self) -> None:
         for key, value in self.objects.items():
             if value == self.currentObj:

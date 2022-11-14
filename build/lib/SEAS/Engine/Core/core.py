@@ -4,23 +4,10 @@ from SEAS.Engine.Core.event import *
 from SEAS.Engine.Core.screen import *
 from SEAS.Engine.Core.filePreset import *
 from SEAS.Engine.Core.input import *
+from SEAS.Engine.Core.font import *
+
 
 from typing import Any
-
-import threading
-
-class Time:
-    def __init__(self) -> None:
-        pass
-
-    def start(self):
-        self.deltaTime = SEAS.deltaTime
-
-    def updateBefore(self):
-        self.deltaTime = SEAS.deltaTime
-
-    def updateAfter(self):
-        self.deltaTime = SEAS.deltaTime
 
 
 class GameCore:
@@ -29,7 +16,7 @@ class GameCore:
         self.targetedScene = None
 
         self.materials = {}
-        self.coreModules = {'Event': Event(), 'Input': Input(),'Screen': Screen()}
+        self.coreModules = {'Event': Event(), 'Input': Input(),'Screen': Screen(), 'Font': Font()}
         self.hitboxGroup = {}
 
         self.inputStateDefault = 'Up'
@@ -67,7 +54,7 @@ class GameCore:
             self.targetedScene.updateScene()
         except AttributeError as err:
             print("DISCLAMER: This could be because you have not created a scene yet. Pls proceed and check that thats intact!")
-            print("\n####################\n####################\n####################\n####################")
+            print("\n####################\n####################\n####################\n####################\n")
             raise err
         
         pygame.display.update()
@@ -97,8 +84,8 @@ class GameCore:
         with open(fileName + '.py', 'w+') as f:
             f.write(filePreset2)
 
-    def newScene(self, name:str, frameLimit:int=60, isTargeted:bool=True, overflowObj:str='') -> Any:
-        self.scenes[name] = Scene(frameLimit)
+    def addScene(self, name:str, frameLimit:int=60, isTargeted:bool=True, overflowObj:str='') -> Any:
+        self.scenes[name] = Scene(frameLimit, self.getCoreModule('Screen').wn)
 
         if isTargeted:
             self.targetedScene = self.scenes[name]
