@@ -24,7 +24,7 @@ class CollidePoly:
         for i in range(len(self.objects)):
             self.objects[i] = self.objects[i].components['HitboxPoly']
 
-        self.collide = [False, None]
+        self.collide = [False, None, None, None]
 
         self.whatSide = None
 
@@ -35,12 +35,14 @@ class CollidePoly:
         if SEAS.getHitboxGroupState(SEAS.getObjectInitHitboxGroup(self.chObj)):
             self.updateCorners()
 
-            self.collide = [False, None]
+            self.collide = [False, None, None, None]
             for i in range(len(self.sides)): # We want to check myObject and all the other objects
                 if self.collide[0] == False:
                     self.mainLoop(self.mySides, self.myCorners, self.sides[i][0], self.corners[i])
                 if self.collide[0] == True:
                     self.collide[1] = self.sides[i][1]
+                    self.collide[2] = self.sides[i][2]
+                    self.collide[3] = self.sides[i][3]
 
     def mainLoop(self, mySides, myCorners, objSides, objCorners):
         for mySide in mySides:
@@ -59,7 +61,6 @@ class CollidePoly:
 
 
             # DEBUG:
-            # self.printCorners()
             # self.drawNormals(normal, side)
 
 
@@ -87,7 +88,6 @@ class CollidePoly:
 
 
                 # DEBUG:
-                # self.printCorners()
                 # self.drawNormals(normal, side)
 
                 if self.sortScalar(scalarsA, scalarsB) == False:
@@ -112,24 +112,22 @@ class CollidePoly:
         self.sides = []
         self.corners = []
         # Loop thru objects
-        for object in self.objects:
-            try:
-                oSide = []
+        for object, rObject in zip(self.objects, self.realObjects):
+            oSide = []
+            oCorners = object.points
 
-                oCorners = object.points
+            for i in range(len(oCorners)):
+                if i == len(oCorners)-1:
+                    oSide.append([oCorners[i], oCorners[0]])
+                else:
+                    oSide.append([oCorners[i], oCorners[i+1]])
 
-                for i in range(len(oCorners)):
-                    if i == len(oCorners)-1:
-                        oSide.append([oCorners[i], oCorners[0]])
-                    else:
-                        oSide.append([oCorners[i], oCorners[i+1]])
+            self.sides.append([oSide,
+                               SEAS.getObjectInitHitboxGroup(self.realObjects[self.objects.index(object)]),
+                               rObject,
+                               SEAS.getScene().getRawObjectName(rObject)])
+            self.corners.append(oCorners)
 
-                self.sides.append([oSide, SEAS.getObjectInitHitboxGroup(self.realObjects[self.objects.index(object)])])
-                self.corners.append(oCorners)
-
-            except:
-                # Rect
-                pass
 
 
     def printCorners(self):
