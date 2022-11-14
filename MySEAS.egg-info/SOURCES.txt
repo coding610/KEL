@@ -21,8 +21,11 @@ SEAS/Engine/Core/__init__.py
 SEAS/Engine/Core/core.py
 SEAS/Engine/Core/event.py
 SEAS/Engine/Core/filePreset.py
+SEAS/Engine/Core/font.py
+SEAS/Engine/Core/importedCore.py
 SEAS/Engine/Core/input.py
 SEAS/Engine/Core/screen.py
+SEAS/Engine/Core/text.py
 SEAS/Engine/Game/__init__.py
 SEAS/Engine/Game/run.py
 SEAS/Engine/Maths/__init__.py
