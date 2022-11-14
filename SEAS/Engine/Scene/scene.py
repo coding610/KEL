@@ -68,8 +68,6 @@ class Scene:
         # Adding a default white material
         self.objects[updatedObjectName].material = "#ffffff"
 
-
-    
     def removeObject(self) -> None:
         for key, value in self.objects.items():
             if value == self.currentObj:
@@ -79,7 +77,7 @@ class Scene:
         del self.objects[objectName]
 
     def removeRawInitObject(self, objectInit) -> None:
-        for key, value in self.objects.items():
+        for value, key in self.objects.items():
             if key == objectInit:
                 del self.objects[value]
 

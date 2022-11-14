@@ -68,8 +68,6 @@ class Scene:
         # Adding a default white material
         self.objects[updatedObjectName].material = "#ffffff"
 
-
-    
     def removeObject(self) -> None:
         for key, value in self.objects.items():
             if value == self.currentObj:
@@ -79,7 +77,7 @@ class Scene:
         del self.objects[objectName]
 
     def removeRawInitObject(self, objectInit) -> None:
-        for key, value in self.objects.items():
+        for value, key in self.objects.items():
             if key == objectInit:
                 del self.objects[value]
 
@@ -104,8 +102,6 @@ class Scene:
         # So were basicly doing getAttribute function but we specify the object and do not use the currentObj
         if attribute == '':
             return self.objects[object]
-
-
         try:
             returnValue = self.objects[object].components[attribute]
 
@@ -152,3 +148,9 @@ class Scene:
 
         except AttributeError as err:
             raise err
+
+    def getObjectName(self):
+        return list(self.objects.keys())[list(self.objects.values()).index(self.currentObj)]
+
+    def getRawObjectName(self, name):
+        return list(self.objects.keys())[list(self.objects.values()).index(name)]

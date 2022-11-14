@@ -43,6 +43,7 @@ class CollidePoly:
                     self.collide[1] = self.sides[i][1]
                     self.collide[2] = self.sides[i][2]
                     self.collide[3] = self.sides[i][3]
+                    break
 
     def mainLoop(self, mySides, myCorners, objSides, objCorners):
         for mySide in mySides:
@@ -123,7 +124,7 @@ class CollidePoly:
                     oSide.append([oCorners[i], oCorners[i+1]])
 
             self.sides.append([oSide,
-                               SEAS.getObjectInitHitboxGroup(self.realObjects[self.objects.index(object)]),
+                               SEAS.getObjectInitHitboxGroup(rObject),
                                rObject,
                                SEAS.getScene().getRawObjectName(rObject)])
             self.corners.append(oCorners)
