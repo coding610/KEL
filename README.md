@@ -3,7 +3,7 @@
 NOTE: This is under development and does not have many features.
 
 This is a python Framework called MySEAS (My Sufficiently exploited and Affordable Script). Its build on top of pygame, thefore the name. In the future you might be able to call it a game engine but right now Its a tool i guess.
-It (by the moment) does not have a UI and not many features. Of course u can excpect a lot of features in the future.
+It (by the moment) does not have a UI and not many features. Of course u can expect more features in the future.
 
 ## Demo
 DEMOS/demo.py is a code example of how you can use this. It does not show all of the current features but it's still cool!
