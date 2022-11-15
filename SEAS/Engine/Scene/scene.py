@@ -98,6 +98,9 @@ class Scene:
             if value == self.currentObj:
                 del self.objects[key]
 
+    def removeAllObject(self) -> None:
+        self.objects = {}
+
     def removeRawNameObject(self, objectName) -> None:
         del self.objects[objectName]
 
